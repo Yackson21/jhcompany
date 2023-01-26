@@ -19,7 +19,7 @@ $invoice->checkLoggedIn();
             <th>DATE CONCUE</th>
             <th>EXPÉDITEUR</th>
             <th>RECEVEUR</th>
-            <th>TOTAL</th>
+            <th>MONTANT</th>
             <th>Imprimer</th>
             <th>Modifier</th>
             <th>Effacer</th>
@@ -35,7 +35,7 @@ $invoice->checkLoggedIn();
                 <td>'.$invoiceDate.'</td>
                 <td>'.$invoiceDetails["order_sender_name"].'</td>
                 <td>'.$invoiceDetails["order_receiver_name"].'</td>
-                <td>'.$invoiceDetails["order_total_after_tax"].'</td>
+                <td>'.$invoiceDetails["order_total"].'</td>
                 <td><a href="print_invoice.php?invoice_id='.$invoiceDetails["order_id"].'" title="Print Invoice"><span class="glyphicon glyphicon-print"></span></a></td>
                 <td><a href="edit_invoice.php?update_id='.$invoiceDetails["order_id"].'"  title="Edit Invoice"><span class="glyphicon glyphicon-edit"></span></a></td>
                 <td><a href="#" id="'.$invoiceDetails["order_id"].'" class="deleteInvoice"  title="Delete Invoice"><span class="glyphicon glyphicon-remove"></span></a></td>
