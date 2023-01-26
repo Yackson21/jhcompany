@@ -5,7 +5,6 @@ class Invoice{
     private $password   = "";
     private $database  = "invoice_system";   
 	private $invoiceUserTable = 'invoice_user';	
-	private $invoiceShippererTable = 'invoice_shipper';	
     private $invoiceOrderTable = 'invoice_order';
 	private $invoiceOrderItemTable = 'invoice_order_item';
 	private $dbConnect = false;
@@ -30,7 +29,7 @@ class Invoice{
 		}
 		return $data;
 	}
-	private function getNumRows($sqlQuery) {
+	private function getNumRows($sqlQuery) {		
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
 		if(!$result){
 			die('Error in query: '. mysqli_error());

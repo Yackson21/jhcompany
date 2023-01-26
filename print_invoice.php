@@ -10,25 +10,25 @@ if(!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
 }
 $invoiceDate = date("d/M/Y, H:i:s", strtotime($invoiceValues['order_date']));
 $output = '';
-$output .= '<table width="100%" border="1" cellpadding="5" cellspacing="0">
-	<tr>
-	<td colspan="2" align="center" style="font-size:18px"><b>COMMERCIAL INVOICE</b></td>
-	</tr>
-	<tr>
-	<td colspan="2" align="left" style="font-size:18px"><b>SHIPPER :</b></td>
-	<td colspan="2" align="left" style="font-size:18px">'.$invoiceValues['order_receiver_name'].'<br /></td>
+$output .= ' 
 	
-	</tr>
-	<tr>
-	<td colspan="2">
 	<table width="100%" cellpadding="5">
 	<tr>
-	<td width="65%">
-	To,<br />
-	<b>RECEVEUR(BILL TO)</b><br />
-	Name : '.$invoiceValues['order_receiver_name'].'<br /> 
-	Billing Address : '.$invoiceValues['order_receiver_address'].'<br />
+	<td colspan="2" align="center" style="font-size:18px"><b>COMMERCIAL INVOICE</b></td>
+	</tr><br/>
+	<tr>
+	<td colspan="2" align="left" style="font-size:18px"><b>SHIPPER</b> : '.$invoiceValues['order_sender_name'].'</td>	
+	</tr>
+	</table>	
+	
+	<table width="100%" cellpadding="5">
+	<tr>
+	<td width="65%">	
+	<b>TO </b>: '.$invoiceValues['order_receiver_name'].'<br />		
+	LOAD PORT : <b>'.$invoiceValues['order_sender_address'].'</b><br />
+	FINAL PORT : <b>'.$invoiceValues['order_receiver_address'].'</b><br />
 	</td>
+
 	<td width="35%">         
 	Invoice No. : '.$invoiceValues['order_id'].'<br />
 	Invoice Date : '.$invoiceDate.'<br />
@@ -39,11 +39,11 @@ $output .= '<table width="100%" border="1" cellpadding="5" cellspacing="0">
 	<table width="100%" border="1" cellpadding="5" cellspacing="0">
 	<tr>
 	<th align="left">SN</th>
-	<th align="left">CODE DU COLI / Item Code</th>
-	<th align="left">DESCRIPTION DU COLI / Item Name</th>
-	<th align="left">QUANTITÉ / Qty</th>
-	<th align="left">PRIX / Price</th>
-	<th align="left">MONTANT / Actual Amt.</th> 
+	<th align="left">MARKS and N°</th>
+	<th align="left">DESCRIPTION OF GOODS</th>
+	<th align="left">QUANTITY</th>
+	<th align="left">UNIT PRICE</th>
+	<th align="left">AMOUNT</th> 
 	</tr>';
 $count = 0;   
 foreach($invoiceItems as $invoiceItem){
@@ -61,32 +61,45 @@ foreach($invoiceItems as $invoiceItem){
 $output .= '
 	<tr>
 	<td align="right" colspan="5"><b>Sub Total</b></td>
-	<td align="left"><b>'.$invoiceValues['order_total_before_tax'].'</b></td>
+	<td align="left"><b>'.$invoiceValues['order_total'].'</b></td>
 	</tr>
 	<tr>
-	<td align="right" colspan="5"><b>Tax Rate :</b></td>
-	<td align="left">'.$invoiceValues['order_tax_per'].'</td>
+	<td align="right" colspan="5"><b>FOB :</b></td>
+	<td align="left">'.$invoiceValues['fob'].'</td>
 	</tr>
 	<tr>
-	<td align="right" colspan="5">Tax Amount: </td>
-	<td align="left">'.$invoiceValues['order_total_tax'].'</td>
+	<td align="right" colspan="5"><b>FRET :</b></td>
+	<td align="left">'.$invoiceValues['fret'].'</td>
 	</tr>
 	<tr>
-	<td align="right" colspan="5">Total: </td>
-	<td align="left">'.$invoiceValues['order_total_after_tax'].'</td>
+	<td align="right" colspan="5">ASS: </td>
+	<td align="left">'.$invoiceValues['ass'].'</td>
 	</tr>
 	<tr>
-	<td align="right" colspan="5">Amount Paid:</td>
-	<td align="left">'.$invoiceValues['order_amount_paid'].'</td>
-	</tr>
+	<td align="right" colspan="5">Amount Paid: </td>
+	<td align="left">'.$invoiceValues['amount_paid'].'</td>
+	</tr>	
 	<tr>
 	<td align="right" colspan="5"><b>Amount Due:</b></td>
-	<td align="left">'.$invoiceValues['order_total_amount_due'].'</td>
+	<td align="left">'.$invoiceValues['amount_due'].'</td><br/>
 	</tr>';
+$output .= '
+	<table width="50%" cellpadding="5"  cellpadding="5" cellspacing="0">
+	<tr>
+	<td colspan="2" align="left" style="font-size:18px"><b>CNT N°: </b>'.$invoiceValues['cnt_n'].'</td>
+	</tr>
+	<tr>
+	<td colspan="2" align="left" style="font-size:18px"><b>GROSS WEIGHT</b> : '.$invoiceValues['gross_weight'].'</td>	
+	</tr>
+	<tr>
+	<td colspan="2" align="left" style="font-size:18px"><b>NET WEIGHT</b> : '.$invoiceValues['net_weight'].'</td>	
+	</tr>
+	
+			';
 $output .= '
 	</table>
 	</td>
-	</tr>
+	</table>
 	</table>';
 // create pdf of invoice	
 $invoiceFileName = 'Invoice-'.$invoiceValues['order_id'].'.pdf';
