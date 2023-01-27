@@ -31,19 +31,19 @@ if(!empty($_GET['update_id']) && $_GET['update_id']) {
 					<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 						<h4>EXPÉDITEUR / SHIPPER:</h4>					
 						<div class="form-group">
-							<input value="<?php echo $invoiceValues['order_sender_name']; ?>" type="text" class="form-control" name="shipperName" id="shipperName" placeholder="Nom de l'expéditeur" autocomplete="off">
+							<input value="<?php echo $invoiceValues['shipper']; ?>" type="text" class="form-control" name="shipperName" id="shipperName" placeholder="Nom de l'expéditeur" autocomplete="off">
 						</div>
 						<div class="form-group">
-							<textarea class="form-control" rows="3" name="senderAddress" id="senderAddress" placeholder="Adresse de l'expéditeur"><?php echo $invoiceValues['order_sender_address']; ?></textarea>
+							<input value="<?php echo $invoiceValues['load_port']; ?>" type="text" class="form-control" name="loadPort" id="loadPort" placeholder="LOAD PORT"></input>
 						</div>					
 					</div>   		
 		      		<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
 		      			<h4>RECEVEUR / RECEIVER:</h4>
 		      			<div class="form-group">
-							<input value="<?php echo $invoiceValues['order_receiver_name']; ?>" type="text" class="form-control" name="companyName" id="companyName" placeholder="Company Name" autocomplete="off">
+							<input value="<?php echo $invoiceValues['receiver']; ?>" type="text" class="form-control" name="companyName" id="companyName" placeholder="Company Name" autocomplete="off">
 						</div>
 						<div class="form-group">
-							<textarea class="form-control" rows="3" name="address" id="address" placeholder="Your Address"><?php echo $invoiceValues['order_receiver_address']; ?></textarea>
+						<input value="<?php echo $invoiceValues['final_port']; ?>" type="text" class="form-control"  name="finalPort" id="finalPort" placeholder="FINAL PORT"></input>
 						</div>
 						
 		      		</div>
@@ -53,7 +53,7 @@ if(!empty($_GET['update_id']) && $_GET['update_id']) {
 		      			<table class="table table-bordered table-hover" id="invoiceItem">	
 							<tr>
 								<th width="2%"><input id="checkAll" class="formcontrol" type="checkbox"></th>
-								<th width="15%">No DU COLI</th>
+								<th width="15%">N° DU COLI</th>
 								<th width="38%">DESCRIPTION DU COLI</th>
 								<th width="15%">QUANTITÉ</th>
 								<th width="15%">PRIX UNITAIRE</th>								
@@ -85,7 +85,7 @@ if(!empty($_GET['update_id']) && $_GET['update_id']) {
 		      	</div>
 		      	<div class="row">	
 		      		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-					  <h4>CNT No: </h4>
+					  <h4>CNT N°: </h4>
 					<div class="form-group">
 						<input value="<?php echo $invoiceValues['cnt_n']; ?>" type="text" class="form-control" name="cntN" id="cntN" placeholder="Numéro du contenaire" autocomplete="off">
 					</div>
@@ -116,63 +116,32 @@ if(!empty($_GET['update_id']) && $_GET['update_id']) {
 									<input value="<?php echo $invoiceValues['order_total']; ?>" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
 								</div>
 							</div>
+							
 							<div class="form-group">
-								<label>Taux FOB: &nbsp;</label>
-								<div class="input-group">
-									<input value="<?php echo $invoiceValues['fob_rate']; ?>" type="number" class="form-control" name="fobRate" id="fobRate" placeholder="Taux FOB">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label>Montant FOB: &nbsp;</label>
+								<label>FOB: &nbsp;</label>
 								<div class="input-group">
 									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['fob']; ?>" type="number" class="form-control" name="fob" id="fob" placeholder="Montant FOB">
 								</div>
 							</div>							
+							
 							<div class="form-group">
-								<label>Taux FRET: &nbsp;</label>
-								<div class="input-group">
-									<input value="<?php echo $invoiceValues['fret_rate']; ?>" type="number" class="form-control" name="fretRate" id="fretRate" placeholder="Taux FRET">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label>Montant FRET: &nbsp;</label>
+								<label>FRET: &nbsp;</label>
 								<div class="input-group">
 									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['fret']; ?>" type="number" class="form-control" name="fret" id="fret" placeholder="Montant FRET">
 								</div>
 							</div>							
+							
 							<div class="form-group">
-								<label>Taux ASS: &nbsp;</label>
-								<div class="input-group">
-									<input value="<?php echo $invoiceValues['ass_rate']; ?>" type="number" class="form-control" name="assRate" id="assRate" placeholder="Taux ASS">
-									<div class="input-group-addon">%</div>
-								</div>
-							</div>
-							<div class="form-group">
-								<label>Montant ASS: &nbsp;</label>
+								<label>ASS: &nbsp;</label>
 								<div class="input-group">
 									<div class="input-group-addon currency">$</div>
 									<input value="<?php echo $invoiceValues['ass']; ?>" type="number" class="form-control" name="ass" id="ass" placeholder="Montant ASS">
 								</div>
-							</div>							
+							</div>				
 							
-							<div class="form-group">
-								<label>Payer: &nbsp;</label>
-								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
-									<input value="<?php echo $invoiceValues['amount_paid']; ?>" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Montant Comptant">
-								</div>
-							</div>
-							<div class="form-group">
-								<label>Reste à Payer: &nbsp;</label>
-								<div class="input-group">
-									<div class="input-group-addon currency">$</div>
-									<input value="<?php echo $invoiceValues['amount_due']; ?>" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Montant Restant">
-								</div>
-							</div>
+							
 						</span>
 					</div>
 		      	</div>

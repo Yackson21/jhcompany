@@ -51,8 +51,8 @@ class Invoice{
 	}		
 	public function saveInvoice($POST) {		
 		$sqlInsert = "
-			INSERT INTO ".$this->invoiceOrderTable."(user_id, order_sender_name, order_sender_address, order_receiver_name, order_receiver_address, order_total, fob_rate, fob, fret_rate, fret, ass_rate, ass, amount_paid, amount_due, cnt_n,gross_weight,net_weight) 
-			VALUES ('".$POST['userId']."', '".$POST['shipperName']."', '".$POST['senderAddress']."', '".$POST['companyName']."', '".$POST['address']."', '".$POST['subTotal']."', '".$POST['fobRate']."', '".$POST['fob']."', '".$POST['fretRate']."', '".$POST['fret']."', '".$POST['assRate']."', '".$POST['ass']."', '".$POST['amountPaid']."', '".$POST['amountDue']."', '".$POST['cntN']."', '".$POST['grossWeight']."', '".$POST['netWeight']."')";		
+			INSERT INTO ".$this->invoiceOrderTable."(user_id, shipper, load_port, receiver, final_port, order_total, fob, fret, ass, cnt_n,gross_weight,net_weight) 
+			VALUES ('".$POST['userId']."', '".$POST['shipperName']."', '".$POST['loadPort']."', '".$POST['companyName']."', '".$POST['finalPort']."', '".$POST['subTotal']."', '".$POST['fob']."', '".$POST['fret']."', '".$POST['ass']."', '".$POST['cntN']."', '".$POST['grossWeight']."', '".$POST['netWeight']."')";		
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect);
 		for ($i = 0; $i < count($POST['productCode']); $i++) {
@@ -66,7 +66,7 @@ class Invoice{
 		if($POST['invoiceId']) {	
 			$sqlInsert = "
 				UPDATE ".$this->invoiceOrderTable." 
-				SET order_sender_name = '".$POST['shipperName']."', order_sender_address= '".$POST['senderAddress']."', order_receiver_name = '".$POST['companyName']."', order_receiver_address= '".$POST['address']."', order_total = '".$POST['subTotal']."', fob_rate = '".$POST['fobRate']."', fob = '".$POST['fob']."', fret_rate = '".$POST['fretRate']."', fret = '".$POST['fret']."', ass_rate = '".$POST['assRate']."', ass = '".$POST['ass']."', amount_paid = '".$POST['amountPaid']."', amount_due = '".$POST['amountDue']."', cnt_n = '".$POST['cntN']."', gross_weight = '".$POST['grossWeight']."', net_weight = '".$POST['netWeight']."' 
+				SET shipper = '".$POST['shipperName']."', load_port= '".$POST['loadPort']."', receiver = '".$POST['companyName']."', final_port = '".$POST['finalPort']."', order_total = '".$POST['subTotal']."', fob = '".$POST['fob']."', fret = '".$POST['fret']."', ass = '".$POST['ass']."', cnt_n = '".$POST['cntN']."', gross_weight = '".$POST['grossWeight']."', net_weight = '".$POST['netWeight']."' 
 				WHERE user_id = '".$POST['userId']."' AND order_id = '".$POST['invoiceId']."'";		
 			mysqli_query($this->dbConnect, $sqlInsert);	
 		}		

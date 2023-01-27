@@ -33,22 +33,20 @@
 	$(document).on('blur', "[id^=quantity_]", function(){
 		calculateTotal();
 	});	
-	$(document).on('blur', "[id^=price_]", function(){
+	$(document).on('click', "[id^=price_]", function(){
 		calculateTotal();
 	});	
-	$(document).on('blur', "#taxRate", function(){		
+	$(document).on('click', "#fob", function(){		
 		calculateTotal();
 	});	
-	$(document).on('blur', "#amountPaid", function(){
-		var amountPaid = $(this).val();
-		var totalAftertax = $('#totalAftertax').val();	
-		if(amountPaid && totalAftertax) {
-			totalAftertax = totalAftertax-amountPaid;			
-			$('#amountDue').val(totalAftertax);
-		} else {
-			$('#amountDue').val(totalAftertax);
-		}	
-	});	
+	$(document).on('click', "#fret", function(){		
+		calculateTotal();		
+	});
+	$(document).on('click', "#ass", function(){		
+		calculateTotal();		
+	});
+
+	
 	$(document).on('click', '.deleteInvoice', function(){
 		var id = $(this).attr("id");
 		if(confirm("Are you sure you want to remove this?")){
@@ -68,37 +66,44 @@
 		}
 	});
 });	
+
+
 function calculateTotal(){
 	var totalAmount = 0; 
 	$("[id^='price_']").each(function() {
 		var id = $(this).attr('id');
 		id = id.replace("price_",'');
-		var price = $('#price_'+id).val();
+		var price = $('#price_'+id).val();				
 		var quantity  = $('#quantity_'+id).val();
 		if(!quantity) {
 			quantity = 1;
 		}
+		if(!price) {
+			var total = $('#total_'+id).val();
+			if(total){
+				var price = total/quantity;
+				$('#price_'+id).val(parseFloat(price));
+			}
+		}else{
 		var total = price*quantity;
 		$('#total_'+id).val(parseFloat(total));
-		totalAmount += total;			
+		totalAmount += total;}			
 	});
 	$('#subTotal').val(parseFloat(totalAmount));	
-	var taxRate = $("#taxRate").val();
+	var fobRate = 85/100;
+	var fretRate = 14/100;
+	var assRate = 1/100;
 	var subTotal = $('#subTotal').val();	
 	if(subTotal) {
-		var taxAmount = subTotal*taxRate/100;
-		$('#taxAmount').val(taxAmount);
-		subTotal = parseFloat(subTotal)+parseFloat(taxAmount);
-		$('#totalAftertax').val(subTotal);		
-		var amountPaid = $('#amountPaid').val();
-		var totalAftertax = $('#totalAftertax').val();	
-		if(amountPaid && totalAftertax) {
-			totalAftertax = totalAftertax-amountPaid;			
-			$('#amountDue').val(totalAftertax);
-		} else {		
-			$('#amountDue').val(subTotal);
-		}
+		var fob = subTotal*fobRate;
+		$('#fob').val(fob);
+		var fret = subTotal*fretRate;
+		$('#fret').val(fret);
+		var ass = subTotal*assRate;
+		$('#ass').val(ass);
+		
 	}
 }
+
 
  

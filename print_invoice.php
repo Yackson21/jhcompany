@@ -10,32 +10,33 @@ if(!empty($_GET['invoice_id']) && $_GET['invoice_id']) {
 }
 $invoiceDate = date("d/M/Y, H:i:s", strtotime($invoiceValues['order_date']));
 $output = '';
+$output .= '<h1 align="center">COMMERCIAL INVOICE</h1><br/><br/><br/>';
 $output .= ' 
-	
 	<table width="100%" cellpadding="5">
 	<tr>
-	<td colspan="2" align="center" style="font-size:18px"><b>COMMERCIAL INVOICE</b></td>
-	</tr><br/>
-	<tr>
-	<td colspan="2" align="left" style="font-size:18px"><b>SHIPPER</b> : '.$invoiceValues['order_sender_name'].'</td>	
-	</tr>
-	</table>	
-	
-	<table width="100%" cellpadding="5">
-	<tr>
-	<td width="65%">	
-	<b>TO </b>: '.$invoiceValues['order_receiver_name'].'<br />		
-	LOAD PORT : <b>'.$invoiceValues['order_sender_address'].'</b><br />
-	FINAL PORT : <b>'.$invoiceValues['order_receiver_address'].'</b><br />
-	</td>
-
-	<td width="35%">         
-	Invoice No. : '.$invoiceValues['order_id'].'<br />
-	Invoice Date : '.$invoiceDate.'<br />
-	</td>
+	<td width="65%">INV. N° : '.$invoiceValues['order_id'].'</td>         
+	<td width="35%">INV. DATE :<b> '.$invoiceDate.'</b></td>	
 	</tr>
 	</table>
-	<br />
+
+	<table width="100%" cellpadding="5">
+	<tr>
+	<td colspan="2"  style="font-size:18px"></td>
+	</tr><br/>
+	<tr>
+	<td width="65%" colspan="2" align="left" style="font-size:18px">SHIPPER : <b>'.$invoiceValues['shipper'].'</b></td>
+	<td width="35%" colspan="2" align="left" style="font-size:18px">LOAD PORT : <b>'.$invoiceValues['load_port'].'</b><br/>
+	</td>	
+	</tr>
+	<tr>
+	<td width="65%" colspan="2" align="left" style="font-size:18px">TO : <b>'.$invoiceValues['receiver'].'</b></td>		
+	<td width="35%" colspan="2" align="left" style="font-size:18px">FINAL PORT : <b>'.$invoiceValues['final_port'].'</b></td>
+	</tr>
+
+	</table>
+	
+	
+	<br/>
 	<table width="100%" border="1" cellpadding="5" cellspacing="0">
 	<tr>
 	<th align="left">SN</th>
@@ -72,16 +73,12 @@ $output .= '
 	<td align="left">'.$invoiceValues['fret'].'</td>
 	</tr>
 	<tr>
-	<td align="right" colspan="5">ASS: </td>
+	<td align="right" colspan="5"><b>ASS:</b> </td>
 	<td align="left">'.$invoiceValues['ass'].'</td>
-	</tr>
-	<tr>
-	<td align="right" colspan="5">Amount Paid: </td>
-	<td align="left">'.$invoiceValues['amount_paid'].'</td>
 	</tr>	
 	<tr>
-	<td align="right" colspan="5"><b>Amount Due:</b></td>
-	<td align="left">'.$invoiceValues['amount_due'].'</td><br/>
+	<td align="left" colspan="5"><b>TOTAL</b></td>
+	<td align="left">'.$invoiceValues['order_total'].'</td><br/>
 	</tr>';
 $output .= '
 	<table width="50%" cellpadding="5"  cellpadding="5" cellspacing="0">
